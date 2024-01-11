@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-center mb-4">Timers</h2>
+      <div *ngFor="let timer of timers" class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ formatTimer(timer) }}</h5>
+          <div *ngIf="showTotalTime[timer.id]">
+            Total Time Run: {{ formatTotalTime(timer) }}
+          </div>
+          <button
+            class="btn btn-success me-2"
+            *ngIf="!timer.intervalObj || getTimerState(timer.id) === 'paused'"
+            (click)="startTimer(timer)"
+          >
+            {{ getTimerState(timer.id) === "paused" ? "Resume" : "Start" }}
+          </button>
+          <button
+            class="btn btn-warning me-2"
+            *ngIf="timer.intervalObj && getTimerState(timer.id) === 'running'"
+            (click)="pauseTimer(timer)"
+          >
+            Pause
+          </button>
+          <button class="btn btn-danger" (click)="resetTimer(timer)">
+            Stop
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
